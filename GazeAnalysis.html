@@ -6,18 +6,28 @@
       var writeData = ["Timestamp,X,Y\n"];
       var videoLink = "";
       webgazer.resume();
+      var count = 0;
+      var tok = "";
 
       // Create WebSocket connection.
       const socket = new WebSocket("wss://localhost:6868");
 
       // Connection opened
       socket.addEventListener("open", (event) => {
-        socket.send("Hello Server!");
+        socket.send('{"id": 1, "jsonrpc": "2.0", "method": "requestAccess", "params": { "clientId": "0ua6IB2Pe9hhbGIJNV9CAqxAw8tuuPYDAHRGv4eW", "clientSecret": "AZohMUYKfW9YCHTjwb74l2CyAK7xs75bDzgfnmrGzDHtiwZEIckyyfC4V0gGJ3LbWP4VVNeUevXYnIq1UkmDxYJInDYBL5ibqDZnjner33SKWS7O4C5boDLD4fnJ0ZPy"}}');
+        socket.send('{"id": 1, "jsonrpc": "2.0", "method": "authorize", "params": { "clientId": "0ua6IB2Pe9hhbGIJNV9CAqxAw8tuuPYDAHRGv4eW", "clientSecret": "AZohMUYKfW9YCHTjwb74l2CyAK7xs75bDzgfnmrGzDHtiwZEIckyyfC4V0gGJ3LbWP4VVNeUevXYnIq1UkmDxYJInDYBL5ibqDZnjner33SKWS7O4C5boDLD4fnJ0ZPy"}}');
       });
 
       // Listen for messages
       socket.addEventListener("message", (event) => {
-        console.log("Message from server ", event.data);
+        if (count == 1) {
+          tok = JSON.parse(event.data).result.cortexToken;
+          socket.send('{"id": 1, "jsonrpc": "2.0", "method": "generateNewToken", "params": { "cortexToken": "' + tok + '", "clientId": "0ua6IB2Pe9hhbGIJNV9CAqxAw8tuuPYDAHRGv4eW", "clientSecret": "AZohMUYKfW9YCHTjwb74l2CyAK7xs75bDzgfnmrGzDHtiwZEIckyyfC4V0gGJ3LbWP4VVNeUevXYnIq1UkmDxYJInDYBL5ibqDZnjner33SKWS7O4C5boDLD4fnJ0ZPy"}}');
+          console.log("TOK", tok);
+        } else {
+          console.log("Message from server ", event.data);
+        }
+        count = count + 1;
       });
 
       webgazer.setGazeListener(function(data, elapsedTime) {
@@ -59,23 +69,29 @@
     <style>
           html, body {height: 100%;margin: 0; padding: 0; }
           table, iframe {width: 100%;height: 100%;border-collapse: collapse;}
-          td {border: 1px solid black;}
+          td {border: 1px solid black;border-collapse: collapse;}
+          img {width: 50%;height: 70%;display: block;margin-left: auto;margin-right: auto;}
     </style>
     <table>
       <tr>
-        <td id="Cell 1">Cell 1</td>
-        <td id="Cell 2">Cell 2</td>
-        <td id="Cell 3">Cell 3</td>
+        <td id="Cell 1"><img src="sadness.png"></img></td>
+        <td id="Cell 2"><img src="sad.jpg"></img></td>
+        <td id="Cell 3"><img src="angry.png"></img></td>
       </tr>
       <tr>
-        <td id="Cell 4">Cell 4</td>
-        <td id="Cell 5">Cell 5</td>
-        <td id="Cell 6">Cell 6</td>
+        <td id="Cell 4"><img src="embarassed.jpg"></img></td>
+        <td id="Cell 5"><img src="happy.png"></img></td>
+        <td id="Cell 6"><img src="frustrated.png"></img></td>
       </tr>
       <tr>
-        <td id="Cell 7">Cell 7</td>
-        <td id="Cell 8"><a id="link">Cell 8</a></td>
-        <td id="Cell 9"><button onclick="createDownload()">Create Download</button></td>
+        <td id="Cell 7"><img src="fear.png"></img></td>
+        <td id="Cell 8"><img src="surprised.png"></img></td>
+        <td id="Cell 9"><img src="disgust.png"></img></td>
+      </tr>
+      <tr>
+        <td id="Cell 10"><img src=""></img></td>
+        <td id="Cell 11"><a id="link">Download File</a></td>
+        <td id="Cell 12"><button onclick="createDownload()">Create Download</button></td>
       </tr>
     </table>
     <iframe id="videoView" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
