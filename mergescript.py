@@ -21,7 +21,7 @@ print(f"eye tracker min: {df2['Timestamp'].min()}")
 merged_df = pd.merge(df1, df2, on='Timestamp', how='outer')
 
 # Sort merged dataframe and reset index
-merged_df = merged_df.sort_values('Timestamp').reset_index(drop=True)
+merged_df = merged_df.sort_values('Timestamp')
 
 # Fill missing values with last known values
 merged_df = merged_df.fillna(method='ffill')
