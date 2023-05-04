@@ -1,3 +1,6 @@
+import datetime
+import os
+
 from cortex import Cortex
 import time
 
@@ -160,19 +163,20 @@ def main():
 
     r = Record(your_app_client_id, your_app_client_secret)
 
-
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
     # input params for create_record. Please see on_create_session_done before running script
-    r.record_title = f'HeadsetData{time.time()}'  # required param and can not be empty
+    r.record_title = f'HeadsetData{timestamp}'  # required param and can not be empty
     r.record_description = 'Headset data for matching with eye tracking'  # optional param
 
     # input params for export_record. Please see on_warn_cortex_stop_all_sub()
-    r.record_export_folder = 'out' # your place to export, you should have write permission, example on desktop
+    r.record_export_folder = os.path.abspath('out') # your place to export, you should have write permission, example on desktop
     r.record_export_data_types = ['MOTION', 'PM', 'BP']
     r.record_export_format = 'CSV'
     r.record_export_version = 'V2'
 
 
-    record_duration_s = 5 # duration for recording in this example. It is not input param of create_record
+    record_duration_s = 20 # duration for recording in this example. It is not input param of create_record
     r.start(record_duration_s)
 
 if __name__ =='__main__':
