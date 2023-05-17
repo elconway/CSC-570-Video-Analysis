@@ -19,6 +19,10 @@ repositories {
 dependencies {
     implementation("org.java-websocket:Java-WebSocket:1.5.3") // https://github.com/TooTallNate/Java-WebSocket
     implementation("org.json:json:20230227") // https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.bytedeco', name: 'javacv', version: '1.5.6'
+    implementation group: 'org.bytedeco', name: 'javacpp-presets', version: '1.5.6'
+    implementation group: 'org.bytedeco', name: 'opencv', version: '4.5.3-1'
+
 
 }
 

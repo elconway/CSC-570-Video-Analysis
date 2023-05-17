@@ -13,5 +13,6 @@ public class Main {
         URI uri = new URI("wss://localhost:6868");
         DanceSocket ws = new DanceSocket(uri, delegate);
         ws.connect();
+
     }
 }
