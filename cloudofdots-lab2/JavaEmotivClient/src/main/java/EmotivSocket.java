@@ -18,7 +18,7 @@ import org.json.JSONObject;
  */
 public class EmotivSocket extends WebSocketClient {
 
-    private EmotivDelegate delegate;
+    EmotivDelegate delegate;
 
     private static final TrustManager[] trustAllCerts = new TrustManager[]{
             new X509TrustManager() {

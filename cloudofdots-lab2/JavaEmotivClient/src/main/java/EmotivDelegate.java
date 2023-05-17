@@ -14,11 +14,11 @@ public class EmotivDelegate {
     public static final String CLIENT_ID = "";
     public static final String CLIENT_SECRET = "";
 
-    private boolean subscribed = false;
-    private String cortexToken = null;
-    private String firstName, lastName, userName;
-    private String headset = null;
-    private String session = null;
+    boolean subscribed = false;
+    String cortexToken = null;
+    String firstName, lastName, userName;
+    String headset = null;
+    String session = null;
 
     public void getCortexInfo(WebSocketClient ws) {
         System.out.println("getCortexInfo: done!");
