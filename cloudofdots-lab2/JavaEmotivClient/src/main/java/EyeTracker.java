@@ -1,70 +1,100 @@
-import org.bytedeco.javacv.*;
-import org.bytedeco.opencv.opencv_core.*;
-import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.core.Rect;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfFloat;
+import org.opencv.core.MatOfInt;
+import org.opencv.core.CvType;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
+import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.objdetect.Objdetect;
 
 import java.util.Date;
+import java.io.IOException;
 
 public class EyeTracker {
-    public static void main(String[] args) throws FrameGrabber.Exception, InterruptedException {
-        // Load the Haar cascade files for eye detection
-        CascadeClassifier eyeCascade = new CascadeClassifier("haarcascade_eye.xml");
 
-        // Create a frame grabber to capture video from the camera
-        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
-        grabber.start();
+    private static final String CASCADE_CLASSIFIER_FILE = "./haarcascade_eye.xml";
+    private static final int FRAME_WIDTH = 640;
+    private static final int FRAME_HEIGHT = 480;
 
-        // Create a canvas frame to display the video
-        CanvasFrame canvasFrame = new CanvasFrame("Eye Gaze Tracker");
-        canvasFrame.setCanvasSize(grabber.getImageWidth(), grabber.getImageHeight());
+    private static CascadeClassifier eyeCascade;
 
-        // Create a frame to store the captured video frame
-        Mat frame = new Mat();
+    public static void trackEyeGaze() throws IOException {
+//        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        nu.pattern.OpenCV.loadShared();
 
-        // Create variables to store the eye coordinates
-        int eyeX = 0;
-        int eyeY = 0;
-
-        // Start tracking eye gaze
-        while (true) {
-            if (!canvasFrame.isVisible()) {
-                break;
-            }
-
-            // Capture the current video frame
-            frame = grabber.grab();
-
-            // Detect eyes in the frame
-            RectVector eyes = new RectVector();
-            eyeCascade.detectMultiScale(frame, eyes);
-
-            // Iterate over the detected eyes
-            for (int i = 0; i < eyes.size(); i++) {
-                Rect eyeRect = eyes.get(i);
-
-                // Get the coordinates of the eye center
-                eyeX = eyeRect.x() + eyeRect.width() / 2;
-                eyeY = eyeRect.y() + eyeRect.height() / 2;
-
-                // Draw a circle at the eye center
-                CvPoint eyeCenter = new CvPoint(eyeX, eyeY);
-                cvCircle(frame, eyeCenter, 5, CvScalar.RED, 2, CV_AA, 0);
-            }
-
-            // Display the video frame with eye gaze tracking
-            canvasFrame.showImage(frame);
-
-            // Get the current time in epoch seconds
-            long epochSeconds = new Date().getTime() / 1000;
-
-            // Print the eye gaze coordinates at the current time
-            System.out.println("Time: " + epochSeconds + " | Eye X: " + eyeX + " | Eye Y: " + eyeY);
-
-            Thread.sleep(100);
+        eyeCascade = new CascadeClassifier();
+        if (!eyeCascade.load(CASCADE_CLASSIFIER_FILE)) {
+            System.out.println("Error loading eye cascade classifier.");
+            return;
         }
 
-        // Stop the frame grabber and close the canvas frame
-        grabber.stop();
-        grabber.close();
-        canvasFrame.dispose();
+        VideoCapture capture = new VideoCapture(0);
+        if (!capture.isOpened()) {
+            System.out.println("Error opening webcam.");
+            return;
+        }
+
+        capture.set(3, FRAME_WIDTH);
+        capture.set(4, FRAME_HEIGHT);
+
+        Mat frame = new Mat();
+        Mat grayFrame = new Mat();
+        MatOfRect eyes = new MatOfRect();
+
+        long startTime = System.currentTimeMillis();
+
+        while (true) {
+            if (capture.read(frame)) {
+                Imgproc.cvtColor(frame, grayFrame, Imgproc.COLOR_BGR2GRAY);
+                Imgproc.equalizeHist(grayFrame, grayFrame);
+
+                // Detect eyes
+                eyeCascade.detectMultiScale(grayFrame, eyes, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE,
+                        new Size(30, 30), new Size());
+
+                Rect[] eyesArray = eyes.toArray();
+                for (Rect eye : eyesArray) {
+                    // Calculate gaze coordinates
+                    int eyeCenterX = eye.x + eye.width / 2;
+                    int eyeCenterY = eye.y + eye.height / 2;
+
+                    // Display gaze coordinates
+                    System.out.println("Epoch Time: " + (System.currentTimeMillis() - startTime));
+                    System.out.println("Gaze X: " + eyeCenterX);
+                    System.out.println("Gaze Y: " + eyeCenterY);
+
+                    // Draw rectangle around the eyes
+                    Imgproc.rectangle(frame, new Point(eye.x, eye.y), new Point(eye.x + eye.width, eye.y + eye.height),
+                            new Scalar(0, 255, 0), 2);
+                }
+
+                // Display the resulting frame
+                Imgcodecs.imwrite("output.jpg", frame);
+
+                // Exit the loop if the 'Q' key is pressed
+                try {
+                    if (System.in.available() > 0 && System.in.read() == 'q') {
+                        break;
+                    }
+                } catch (IOException e) {
+                    // Handle the exception here, such as logging an error message
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Error capturing frame from webcam.");
+                break;
+            }
+        }
+
+        capture.release();
     }
 }

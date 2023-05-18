@@ -9,10 +9,11 @@ import java.net.URI;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        DanceDelegate delegate = new DanceDelegate();
-        URI uri = new URI("wss://localhost:6868");
-        DanceSocket ws = new DanceSocket(uri, delegate);
-        ws.connect();
+//        DanceDelegate delegate = new DanceDelegate();
+//        URI uri = new URI("wss://localhost:6868");
+//        DanceSocket ws = new DanceSocket(uri, delegate);
+//        ws.connect();
+        EyeTracker.trackEyeGaze();
 
     }
 }
