@@ -21,14 +21,13 @@ import java.io.IOException;
 
 public class EyeTracker {
 
-    private static final String CASCADE_CLASSIFIER_FILE = "./haarcascade_eye.xml";
-    private static final int FRAME_WIDTH = 640;
-    private static final int FRAME_HEIGHT = 480;
+    private static final String CASCADE_CLASSIFIER_FILE = "src/main/java/haarcascade_eye.xml";
+    private static final int FRAME_WIDTH = 1920;
+    private static final int FRAME_HEIGHT = 1080;
 
     private static CascadeClassifier eyeCascade;
 
     public static void trackEyeGaze() throws IOException {
-//        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         nu.pattern.OpenCV.loadShared();
 
         eyeCascade = new CascadeClassifier();
@@ -50,9 +49,10 @@ public class EyeTracker {
         Mat grayFrame = new Mat();
         MatOfRect eyes = new MatOfRect();
 
-        long startTime = System.currentTimeMillis();
+//        long startTime = System.currentTimeMillis();
 
         while (true) {
+            try {
             if (capture.read(frame)) {
                 Imgproc.cvtColor(frame, grayFrame, Imgproc.COLOR_BGR2GRAY);
                 Imgproc.equalizeHist(grayFrame, grayFrame);
@@ -68,7 +68,7 @@ public class EyeTracker {
                     int eyeCenterY = eye.y + eye.height / 2;
 
                     // Display gaze coordinates
-                    System.out.println("Epoch Time: " + (System.currentTimeMillis() - startTime));
+                    System.out.println("Time: " + System.currentTimeMillis());
                     System.out.println("Gaze X: " + eyeCenterX);
                     System.out.println("Gaze Y: " + eyeCenterY);
 
@@ -78,7 +78,7 @@ public class EyeTracker {
                 }
 
                 // Display the resulting frame
-                Imgcodecs.imwrite("output.jpg", frame);
+//                Imgcodecs.imwrite("output.jpg", frame);
 
                 // Exit the loop if the 'Q' key is pressed
                 try {
@@ -89,8 +89,9 @@ public class EyeTracker {
                     // Handle the exception here, such as logging an error message
                     e.printStackTrace();
                 }
-            } else {
-                System.out.println("Error capturing frame from webcam.");
+            } } catch (Exception e) {
+                System.out.println("Exception occurred while capturing frame: " + e.getMessage());
+                e.printStackTrace();
                 break;
             }
         }
