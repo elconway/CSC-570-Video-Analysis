@@ -13,14 +13,19 @@ plugins {
 }
 
 repositories {
-    mavenCentral()
+    mavenCentral();
 }
 
 dependencies {
     implementation("org.java-websocket:Java-WebSocket:1.5.3") // https://github.com/TooTallNate/Java-WebSocket
     implementation("org.json:json:20230227") // https://mvnrepository.com/artifact/org.json/json
+    implementation(group = "org.openpnp", name = "opencv", version = "4.7.0-0")
 
 }
+
+//run {
+//    systemProperty("java.library.path", "/build/lib")
+//}
 
 application {
     mainClass.set("Main")
