@@ -1,5 +1,5 @@
 import java.net.URI;
-
+import java.io.IOException;
 /**
  * Main class to run the Emotiv WebSocket client.
  *
@@ -13,7 +13,16 @@ public class Main {
 //        URI uri = new URI("wss://localhost:6868");
 //        DanceSocket ws = new DanceSocket(uri, delegate);
 //        ws.connect();
-        EyeTracker.trackEyeGaze();
+        Thread eyeTrackerThread = new Thread(() -> {
+            try {
+                EyeTracker.trackEyeGaze();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        eyeTrackerThread.start();
+        eyeTrackerThread.join();
 
     }
 }
