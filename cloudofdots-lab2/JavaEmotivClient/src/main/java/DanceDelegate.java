@@ -114,6 +114,19 @@ public class DanceDelegate extends EmotivDelegate {
     // "foc.isActive","foc"
     // ]
     public void pad(JSONObject object) {
-        System.out.println("Trying to do some PAD vector math");
+        int[] magic_indecies = new int[]{1, 3, 6, 8, 10, 12};
+        double[][] met = new double[][]{{1, 1, 1}, {1, 1, -1}, {-1, 1, -1}, {1, -1, 1}, {1, 1, -1}, {1, -1, 1}};
+        double[] norm = new double[]{-2, -1, 0};
+        JSONArray arr = object.getJSONArray("met");
+        for (int i = 0; i < magic_indecies.length; i++) {
+            for (int j = 0; j < 3; j++) {
+                norm[j] = norm[j] + (met[i][j] * (double)(arr.get(magic_indecies[i])));
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            System.out.println(norm[i]);
+            norm[i] = norm[i] / 3; //graph here?
+            System.out.println(norm[i]);
+        }
     }
 }
