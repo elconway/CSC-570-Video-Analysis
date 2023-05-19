@@ -1,9 +1,17 @@
 import org.java_websocket.client.WebSocketClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jzy3d.chart.Chart;
+import org.jzy3d.chart.factories.*;
+import org.jzy3d.colors.Color;
+import org.jzy3d.maths.Coord3d;
+import org.jzy3d.plot3d.primitives.Scatter;
+import org.jzy3d.plot3d.rendering.canvas.Quality;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.util.Random;
 import java.util.Scanner;
 
 public class DanceDelegate extends EmotivDelegate {
@@ -120,7 +128,7 @@ public class DanceDelegate extends EmotivDelegate {
         JSONArray arr = object.getJSONArray("met");
         for (int i = 0; i < magic_indecies.length; i++) {
             for (int j = 0; j < 3; j++) {
-                norm[j] = norm[j] + (met[i][j] * (double)(arr.get(magic_indecies[i])));
+                norm[j] = norm[j] + (met[i][j] * ((BigDecimal)(arr.get(magic_indecies[i]))).doubleValue());
             }
         }
         for (int i = 0; i < 3; i++) {
@@ -128,5 +136,32 @@ public class DanceDelegate extends EmotivDelegate {
             norm[i] = norm[i] / 3; //graph here?
             System.out.println(norm[i]);
         }
-    }
+
+        float a;
+
+        Coord3d[] points = new Coord3d[7];
+        Color[] colors = new Color[7];
+
+        for (int i = 0; i < 6; i++) {
+            points[i] = new Coord3d(met[i][0], met[i][1], met[i][2]);
+            a = 0.75f;
+            colors[i] = new Color(met[i][0], met[i][1], met[i][2], a);
+        }
+        points[6] = new Coord3d(norm[0], norm[1], norm[2]);
+        colors[6] = Color.BLACK;
+
+        Scatter scatter = new Scatter(points, colors);
+        scatter.setWidth(3);
+
+        Quality q = Quality.Advanced();
+        q.setAnimated(false);
+
+        IPainterFactory p = new EmulGLPainterFactory();
+        IChartFactory f = new EmulGLChartFactory(p);
+
+        Chart chart = f.newChart(q);
+        chart.add(scatter);
+        chart.open("Jzy3d Demo", 600, 600);
+   }
+
 }

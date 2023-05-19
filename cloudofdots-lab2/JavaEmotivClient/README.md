@@ -11,3 +11,5 @@ gradlew is the wrapper script
 build.gradle.kts is the build file which is written in Kotlin, but for our purposes it's basically just a dependency manager  
 Gradle expects all java files to be in src/java  
 Initial builds of gradle will be slow, but they become faster  
+
+This project uses version 2.2.0 of [jzy3d](https://github.com/jzy3d/jzy3d-api)
