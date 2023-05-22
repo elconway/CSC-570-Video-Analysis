@@ -13,6 +13,24 @@ plugins {
 }
 
 repositories {
+    maven {
+        url = uri("https://github.com/jzy3d/jzy3d-api/tree/2.2.0")
+        name = "Jzy3d Releases"
+        content {
+            includeGroupByRegex("org.jzy3d")
+        }
+    }
+    maven {
+        url = uri("https://maven.jzy3d.org/releases/")
+        name = "Jzy3d Releases"
+        content {
+            includeGroupByRegex("org.jzy3d")
+        }
+        metadataSources {
+            artifact()
+        }
+    }
+    mavenCentral()
     mavenCentral();
 }
 
@@ -20,6 +38,18 @@ dependencies {
     implementation("org.java-websocket:Java-WebSocket:1.5.3") // https://github.com/TooTallNate/Java-WebSocket
     implementation("org.json:json:20230227") // https://mvnrepository.com/artifact/org.json/json
     implementation(group = "org.openpnp", name = "opencv", version = "4.7.0-0")
+    implementation("org.jzy3d:jzy3d-core:2.2.0") // https://mvnrepository.com/artifact/org.jzy3d/jzy3d-api
+//    implementation("org.jzy3d:jzy3d-core-awt:2.2.0")
+//    implementation("org.jzy3d:jzy3d-native-jogl-awt:2.2.0")
+//    implementation("org.jzy3d:jzy3d-native-jogl-core:2.2.0")
+    implementation("org.jzy3d:jzy3d-emul-gl-awt:2.2.0")
+    implementation("org.jzy3d:jzy3d-jGL-awt:2.2.0")
+    implementation("org.jzy3d:jzy3d-core-awt:2.2.0")
+    implementation("org.jzy3d:jzy3d-tester:2.2.0")
+//    implementation("org.jogamp.jogl:jogl-all-main:2.3.2") // https://mvnrepository.com/artifact/org.jogamp.jogl/jogl-all-main
+//    implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2") // https://mvnrepository.com/artifact/org.jogamp.gluegen/gluegen-rt
+    implementation("org.apache.logging.log4j:log4j-core:2.20.0") // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation("org.apache.commons:commons-collections4:4.4") // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
 
 }
 
