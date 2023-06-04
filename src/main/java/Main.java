@@ -40,7 +40,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        container = new JPanel();
+        JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         JFrame frame = new JFrame("DancEmote");
@@ -48,7 +48,8 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JFXPanel VFXPanel=new JFXPanel();
-        File video_source=new File("C:\\Users\\Everett\\IdeaProjects\\CSC 570\\src\\CSC-570-Video-Analysis\\cloudofdots-lab2\\JavaEmotivClient\\src\\main\\java\\test.mp4");
+        //File video_source=new File("C:\\Users\\Everett\\IdeaProjects\\CSC 570\\src\\CSC-570-Video-Analysis\\cloudofdots-lab2\\JavaEmotivClient\\src\\main\\java\\test.mp4");
+        File video_source = new File("videos/test.mp4");
         Media m=new Media(video_source.toURI().toString());
         MediaPlayer player=new MediaPlayer(m);
         MediaView viewer=new MediaView(player);
