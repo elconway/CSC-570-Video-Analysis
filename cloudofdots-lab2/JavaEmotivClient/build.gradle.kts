@@ -10,6 +10,7 @@
 plugins {
     java
     application
+    id("org.openjfx.javafxplugin") version "0.0.14"
 }
 
 repositories {
@@ -50,12 +51,26 @@ dependencies {
 //    implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2") // https://mvnrepository.com/artifact/org.jogamp.gluegen/gluegen-rt
     implementation("org.apache.logging.log4j:log4j-core:2.20.0") // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     implementation("org.apache.commons:commons-collections4:4.4") // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+//    implementation("org.mp4parser:mp4parser-project:1.9.56") // https://mvnrepository.com/artifact/org.mp4parser/mp4parser-project
+    implementation("org.netbeans.api:org-openide-awt:RELEASE170") // https://mvnrepository.com/artifact/org.netbeans.api/org-openide-awt
+    implementation("org.openjfx:javafx-swing:21-ea+17") // https://mvnrepository.com/artifact/org.openjfx/javafx-swing
+    implementation("org.openjfx:javafx-media:21-ea+17") // https://mvnrepository.com/artifact/org.openjfx/javafx-media
+//    implementation("org.openjfx:javafx-embed:21-ea+17") // https://mvnrepository.com/artifact/org.openjfx/javafx-embed
+    implementation("org.openjfx:javafx-graphics:21-ea+17") // https://mvnrepository.com/artifact/org.openjfx/javafx-graphics
+//    implementation("org.openjfx:javafx-layout:21-ea+17") // https://mvnrepository.com/artifact/org.openjfx/javafx-layout
+//    implementation("org.openjfx:javafx-scene:21-ea+17") // https://mvnrepository.com/artifact/org.openjfx/javafx-scene
+//    implementation("org.openjfx:javafx-stage:21-ea+17") // https://mvnrepository.com/artifact/org.openjfx/javafx-stage
+
 
 }
 
 //run {
 //    systemProperty("java.library.path", "/build/lib")
 //}
+
+javafx {
+    modules("javafx.base", "javafx.controls", "javafx.graphics", "javafx.media", "javafx.swing")
+}
 
 application {
     mainClass.set("Main")
