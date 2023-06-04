@@ -1,19 +1,24 @@
-# Assignment 3 Gaze + EEG.Affect
-Package for CSC 570 at Cal Poly SLO
-Group Members: Jordan Chew, Lee Conway, and Chandradeep Chowdhury
+# Lab 2 #
 
-## python
-The python directory holds the code based off of https://github.com/Emotiv/cortex-v2-example/tree/master/python  
-Run it with `python3 records.py`, but you need to update your client and secret
+## Setup Instructions ##
+Install gradle: https://gradle.org/install/  
+Once you've installed gradle, set up the clientID and clientSecret in DanceDelegate  
+Run the project by doing
+```shell
+./gradlew run
+```
+gradlew is the wrapper script  
+build.gradle.kts is the build file which is written in Kotlin, but for our purposes it's basically just a dependency manager  
+Gradle expects all java files to be in src/java  
+Initial builds of gradle will be slow, but they become faster  
+<<<<<<< HEAD
+=======
 
-## mergescript.py
-Script to merge the emotiv data with the eye tracking data. Currently the datasets are hardcoded
+This project uses version 2.2.0 of [jzy3d](https://github.com/jzy3d/jzy3d-api)
 
-## datasets
-Datasets are stored in here, merged\_dataset.csv is the final combined dataset
+## Comments
 
-## GazeAnalysis.html
-Open using Chrome browser, then click "allow" in order to activate the WebGazer.js tool. 
-In order to display standard YouTube video at full screen below the cells, copy either the full URL or the video id into the box in the upper righthand corner, then click the "Submit" button.
-Whether using the video feature or the cell view, click the "Create Download" button in the bottom righthand corner of the table to generate the eye tracking data file.
-Then, click the "Download File" link just to the left in order to download the data in CSV file format.
+We have a working eye tracker and websocket for accessing the eye gaze data and the emotiv data in real time. 
+We also have a working library for plotting the 3d vectors, however we were unable to complete this part of the lab
+as we spent a lot of time finding a suitable library and managing the dependency.
+
