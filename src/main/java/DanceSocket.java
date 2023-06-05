@@ -1,3 +1,5 @@
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -7,9 +9,12 @@ import java.util.Vector;
 public class DanceSocket extends EmotivSocket{
 
     DanceDelegate danceDelegate;
-    public DanceSocket(URI serverURI, DanceDelegate delegate) throws Exception {
+    LineChart<Number, Number> emotivPlot;
+
+    public DanceSocket(URI serverURI, DanceDelegate delegate, LineChart<Number, Number> plot) throws Exception {
         super(serverURI, delegate);
         danceDelegate = delegate;
+        emotivPlot = plot;
     }
 
     @Override
@@ -22,7 +27,7 @@ public class DanceSocket extends EmotivSocket{
             delegate.handle (id, result, this);
         } else {
             JSONObject object = new JSONObject(message);
-            danceDelegate.pad(object);
+            danceDelegate.pad(object, emotivPlot);
         }
     }
 }

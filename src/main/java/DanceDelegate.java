@@ -1,3 +1,5 @@
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import org.java_websocket.client.WebSocketClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,15 +13,17 @@ import org.jzy3d.plot3d.rendering.canvas.Quality;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Random;
 import java.util.Scanner;
 
 public class DanceDelegate extends EmotivDelegate {
 
     public String clientID, clientSecret;
+    private XYChart.Series<Number, Number> engagementSeries;
 
     public DanceDelegate() {
-        File file = new File("../../../emotiv.secret");
+        File file = new File("../emotiv.secret");
 
         try {
             Scanner scanner = new Scanner(file);
@@ -30,6 +34,7 @@ public class DanceDelegate extends EmotivDelegate {
             clientID = "dMLPgtBrFXZpQwjsEnuTTJfUrXiUqSrCzgQcVQZ1";
 
             scanner.close();
+            engagementSeries = new XYChart.Series<>();
         } catch (FileNotFoundException e) {
             System.out.println("Secret not found");
         }
@@ -121,7 +126,7 @@ public class DanceDelegate extends EmotivDelegate {
     // "int.isActive","int",
     // "foc.isActive","foc"
     // ]
-    public void pad(JSONObject object) {
+    public void pad(JSONObject object, LineChart<Number, Number> plot) {
         int[] magic_indecies = new int[]{1, 3, 6, 8, 10, 12};
         double[][] met = new double[][]{{1, 1, 1}, {1, 1, -1}, {-1, 1, -1}, {1, -1, 1}, {1, 1, -1}, {1, -1, 1}};
         double[] norm = new double[]{-2, -1, 0};
@@ -137,31 +142,35 @@ public class DanceDelegate extends EmotivDelegate {
             System.out.println(norm[i]);
         }
 
-        float a;
+        engagementSeries.getData().add(new XYChart.Data<>(Instant.now().toEpochMilli(), norm[0]));
+        plot.getData().clear();
+        plot.getData().add(engagementSeries);
 
-        Coord3d[] points = new Coord3d[7];
-        Color[] colors = new Color[7];
-
-        for (int i = 0; i < 6; i++) {
-            points[i] = new Coord3d(met[i][0], met[i][1], met[i][2]);
-            a = 0.75f;
-            colors[i] = new Color(met[i][0], met[i][1], met[i][2], a);
-        }
-        points[6] = new Coord3d(norm[0], norm[1], norm[2]);
-        colors[6] = Color.BLACK;
-
-        Scatter scatter = new Scatter(points, colors);
-        scatter.setWidth(3);
-
-        Quality q = Quality.Advanced();
-        q.setAnimated(false);
-
-        IPainterFactory p = new EmulGLPainterFactory();
-        IChartFactory f = new EmulGLChartFactory(p);
-
-        Chart chart = f.newChart(q);
-        chart.add(scatter);
-        chart.open("Jzy3d Demo", 600, 600);
+//        float a;
+//
+//        Coord3d[] points = new Coord3d[7];
+//        Color[] colors = new Color[7];
+//
+//        for (int i = 0; i < 6; i++) {
+//            points[i] = new Coord3d(met[i][0], met[i][1], met[i][2]);
+//            a = 0.75f;
+//            colors[i] = new Color(met[i][0], met[i][1], met[i][2], a);
+//        }
+//        points[6] = new Coord3d(norm[0], norm[1], norm[2]);
+//        colors[6] = Color.BLACK;
+//
+//        Scatter scatter = new Scatter(points, colors);
+//        scatter.setWidth(3);
+//
+//        Quality q = Quality.Advanced();
+//        q.setAnimated(false);
+//
+//        IPainterFactory p = new EmulGLPainterFactory();
+//        IChartFactory f = new EmulGLChartFactory(p);
+//
+//        Chart chart = f.newChart(q);
+//        chart.add(scatter);
+//        chart.open("Jzy3d Demo", 600, 600);
    }
 
 }

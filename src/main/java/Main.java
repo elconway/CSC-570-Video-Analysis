@@ -7,6 +7,13 @@ import javax.swing.JButton;
 import javafx.embed.swing.JFXPanel;
 
 import java.io.File;
+
+import javafx.geometry.Rectangle2D;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -55,10 +62,10 @@ public class Main {
         Media m=new Media(video_source.toURI().toString());
         MediaPlayer player=new MediaPlayer(m);
         MediaView viewer=new MediaView(player);
-        StackPane root=new StackPane();
+        FlowPane root=new FlowPane();
         Scene scene=new Scene(root);
         // center video position
-        javafx.geometry.Rectangle2D screen=Screen.getPrimary().getVisualBounds();
+        Rectangle2D screen=Screen.getPrimary().getVisualBounds();
         viewer.setX(0);//getWidth()-videoPanel
         viewer.setY(0);
         // resize video based on screen size
@@ -69,14 +76,42 @@ public class Main {
         viewer.setPreserveRatio(true);
 
 
+        final NumberAxis timeAxis = new NumberAxis();
+        final NumberAxis emotionAxis = new NumberAxis();
+        timeAxis.setLabel("Epoch Milliseconds");
+        LineChart<Number, Number> emotivPlot = new LineChart<>(timeAxis, emotionAxis);
+
+        emotivPlot.setTitle("Emotion Data");
+        emotivPlot.setAlternativeColumnFillVisible(false);
+        emotivPlot.setAlternativeRowFillVisible(false);
+
+        //defining a series
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName("My portfolio");
+        //populating the series with data
+        series.getData().add(new XYChart.Data<>(1, 23));
+        series.getData().add(new XYChart.Data<>(2, 14));
+        series.getData().add(new XYChart.Data<>(3, 15));
+        series.getData().add(new XYChart.Data<>(4, 24));
+        series.getData().add(new XYChart.Data<>(5, 34));
+        series.getData().add(new XYChart.Data<>(6, 36));
+        series.getData().add(new XYChart.Data<>(7, 22));
+        series.getData().add(new XYChart.Data<>(8, 30));
+        series.getData().add(new XYChart.Data<>(9, 31));
+        series.getData().add(new XYChart.Data<>(10, 17));
+        series.getData().add(new XYChart.Data<>(11, 29));
+        series.getData().add(new XYChart.Data<>(12, 25));
+
+        emotivPlot.getData().add(series);
 
         // add video to stackpane
         root.getChildren().add(viewer);
-        StackPane overlayPane = new StackPane();
-        root.getChildren().add(overlayPane);
+        root.getChildren().add(emotivPlot);
+//        StackPane overlayPane = new StackPane();
+//        root.getChildren().add(overlayPane);
         VFXPanel.setScene(scene);
-        player.play();
-        initEyeTracker(overlayPane);
+//        player.play();
+//        initEyeTracker(overlayPane);
         frame.add(VFXPanel, BorderLayout.NORTH);  // add the panel to the frame
         // player.pause();
 
@@ -92,7 +127,7 @@ public class Main {
 //        MovieBox movieBox = isoFile.getMovieBox();
 //        DanceDelegate delegate = new DanceDelegate();
 //        URI uri = new URI("wss://localhost:6868");
-//        DanceSocket ws = new DanceSocket(uri, delegate);
+//        DanceSocket ws = new DanceSocket(uri, delegate, emotivPlot);
 //        ws.connect();
 //        Thread eyeTrackerThread = new Thread(() -> {
 //            try {
