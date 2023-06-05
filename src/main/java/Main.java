@@ -214,19 +214,15 @@ public class Main extends Application {
         fruLay.getChildren().addAll(fruB, fruL);
         fruScene = new Scene(fruLay, 1000, 1000);
 
-        window.setScene(engScene);
-        window.setTitle("DancEmote");
-        window.show();
-
-        /*JPanel container = new JPanel();
-        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        // JPanel container = new JPanel();
+        // container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         JFrame frame = new JFrame("DancEmote");
         frame.setSize(1000, 1000);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // TODO: Re-add
-        /*JFXPanel VFXPanel=new JFXPanel();
+        JFXPanel VFXPanel=new JFXPanel();
         //File video_source=new File("C:\\Users\\Everett\\IdeaProjects\\CSC 570\\src\\CSC-570-Video-Analysis\\cloudofdots-lab2\\JavaEmotivClient\\src\\main\\java\\test.mp4");
         File video_source = new File("videos/test.mp4");
         Media m=new Media(video_source.toURI().toString());
@@ -243,24 +239,25 @@ public class Main extends Application {
         DoubleProperty height=viewer.fitHeightProperty();
         width.bind(Bindings.selectDouble(viewer.sceneProperty(),"width"));
         height.bind(Bindings.selectDouble(viewer.sceneProperty(),"height"));
-        viewer.setPreserveRatio(true);*/
+        viewer.setPreserveRatio(true);
 
 
 
         // add video to stackpane
         // TODO: Re-add
-        /*root.getChildren().add(viewer);
+        root.getChildren().add(viewer);
         StackPane overlayPane = new StackPane();
         root.getChildren().add(overlayPane);
         VFXPanel.setScene(scene);
         player.play();
         initEyeTracker(overlayPane);
-
-
-
         frame.add(VFXPanel, BorderLayout.NORTH);  // add the panel to the frame
-        player.pause();*/
+        player.pause();
 
+
+        window.setScene(engScene);
+        window.setTitle("DancEmote");
+        window.show();
 
 
         /* Create scene for excitement
