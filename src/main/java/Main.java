@@ -38,6 +38,8 @@ import javax.swing.*;
 
 public class Main {
 
+    private static EyeTracker eyeTracker;
+
     public static void main(String[] args) throws Exception {
 
         JPanel container = new JPanel();
@@ -65,10 +67,16 @@ public class Main {
         width.bind(Bindings.selectDouble(viewer.sceneProperty(),"width"));
         height.bind(Bindings.selectDouble(viewer.sceneProperty(),"height"));
         viewer.setPreserveRatio(true);
+
+
+
         // add video to stackpane
         root.getChildren().add(viewer);
+        StackPane overlayPane = new StackPane();
+        root.getChildren().add(overlayPane);
         VFXPanel.setScene(scene);
-        // player.play();
+        player.play();
+        initEyeTracker(overlayPane);
         frame.add(VFXPanel, BorderLayout.NORTH);  // add the panel to the frame
         // player.pause();
 
@@ -96,5 +104,21 @@ public class Main {
 //
 //        eyeTrackerThread.start();
 //        eyeTrackerThread.join();
+    }
+
+    private static void initEyeTracker(StackPane overlayPane) {
+        // Create an instance of the EyeTracker class
+        eyeTracker = new EyeTracker();
+
+        // Run the eye tracker in a separate thread
+        Thread eyeTrackerThread = new Thread(() -> {
+            try {
+                eyeTracker.trackEyeGaze(overlayPane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        eyeTrackerThread.start();
     }
 }
