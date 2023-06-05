@@ -137,9 +137,7 @@ public class DanceDelegate extends EmotivDelegate {
             }
         }
         for (int i = 0; i < 3; i++) {
-            System.out.println(norm[i]);
             norm[i] = norm[i] / 3; //graph here?
-            System.out.println(norm[i]);
         }
 
         engagementSeries.getData().add(new XYChart.Data<>(Instant.now().toEpochMilli(), norm[0]));
