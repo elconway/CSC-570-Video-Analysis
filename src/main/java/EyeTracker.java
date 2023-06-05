@@ -15,6 +15,10 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.objdetect.Objdetect;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+import javafx.application.Platform;
 
 import java.util.Date;
 import java.io.IOException;
@@ -27,7 +31,7 @@ public class EyeTracker {
 
     private static CascadeClassifier eyeCascade;
 
-    public static void trackEyeGaze() throws IOException {
+    public static void trackEyeGaze(StackPane overlayPane) throws IOException {
         nu.pattern.OpenCV.loadShared();
 
         eyeCascade = new CascadeClassifier();
@@ -67,14 +71,21 @@ public class EyeTracker {
                     int eyeCenterX = eye.x + eye.width / 2;
                     int eyeCenterY = eye.y + eye.height / 2;
 
+                    double gazeX = eyeCenterX / (double) FRAME_WIDTH;
+                    double gazeY = eyeCenterY / (double) FRAME_HEIGHT;
+
                     // Display gaze coordinates
-                    System.out.println("Time: " + System.currentTimeMillis());
-                    System.out.println("Gaze X: " + eyeCenterX);
-                    System.out.println("Gaze Y: " + eyeCenterY);
+                    System.out.println("Gaze X: " + gazeX);
+                    System.out.println("Gaze Y: " + gazeY);
 
                     // Draw rectangle around the eyes
-                    Imgproc.rectangle(frame, new Point(eye.x, eye.y), new Point(eye.x + eye.width, eye.y + eye.height),
-                            new Scalar(0, 255, 0), 2);
+                    Platform.runLater(() -> {
+                        Circle gazeDot = new Circle(5, Color.RED);
+                        gazeDot.setTranslateX(gazeX * overlayPane.getWidth());
+                        gazeDot.setTranslateY(gazeY * overlayPane.getHeight());
+                        overlayPane.getChildren().clear(); // Clear previous dots
+                        overlayPane.getChildren().add(gazeDot); // Add the new dot
+                    });
                 }
 
                 // Display the resulting frame
