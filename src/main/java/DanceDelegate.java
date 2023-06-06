@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import org.java_websocket.client.WebSocketClient;
@@ -21,6 +22,13 @@ public class DanceDelegate extends EmotivDelegate {
 
     public String clientID, clientSecret;
     private XYChart.Series<Number, Number> engagementSeries;
+    private XYChart.Series<Number, Number> excitementSeries;
+    private XYChart.Series<Number, Number> stressSeries;
+    private XYChart.Series<Number, Number> relaxationSeries;
+    private XYChart.Series<Number, Number> interestSeries;
+    private XYChart.Series<Number, Number> focusSeries;
+    private boolean first;
+    private long start = 0;
 
     public DanceDelegate() {
         File file = new File("../emotiv.secret");
@@ -35,6 +43,19 @@ public class DanceDelegate extends EmotivDelegate {
 
             scanner.close();
             engagementSeries = new XYChart.Series<>();
+            excitementSeries = new XYChart.Series<>();
+            stressSeries = new XYChart.Series<>();
+            relaxationSeries = new XYChart.Series<>();
+            interestSeries = new XYChart.Series<>();
+            focusSeries = new XYChart.Series<>();
+            engagementSeries.setName("Engagement");
+            excitementSeries.setName("Excitement");
+            stressSeries.setName("Stress");
+            relaxationSeries.setName("Relaxation");
+            interestSeries.setName("Interest");
+            focusSeries.setName("Focus");
+            first = true;
+            start = Instant.now().getEpochSecond();
         } catch (FileNotFoundException e) {
             System.out.println("Secret not found");
         }
@@ -140,35 +161,25 @@ public class DanceDelegate extends EmotivDelegate {
             norm[i] = norm[i] / 3; //graph here?
         }
 
-        engagementSeries.getData().add(new XYChart.Data<>(Instant.now().toEpochMilli(), norm[0]));
-        plot.getData().clear();
-        plot.getData().add(engagementSeries);
+        Platform.runLater(() -> {
+            long current = Instant.now().getEpochSecond() - start;
+            engagementSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[0]))).doubleValue()));
+            excitementSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[1]))).doubleValue()));
+            stressSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[2]))).doubleValue()));
+            relaxationSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[3]))).doubleValue()));
+            interestSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[4]))).doubleValue()));
+            focusSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[5]))).doubleValue()));
 
-//        float a;
-//
-//        Coord3d[] points = new Coord3d[7];
-//        Color[] colors = new Color[7];
-//
-//        for (int i = 0; i < 6; i++) {
-//            points[i] = new Coord3d(met[i][0], met[i][1], met[i][2]);
-//            a = 0.75f;
-//            colors[i] = new Color(met[i][0], met[i][1], met[i][2], a);
-//        }
-//        points[6] = new Coord3d(norm[0], norm[1], norm[2]);
-//        colors[6] = Color.BLACK;
-//
-//        Scatter scatter = new Scatter(points, colors);
-//        scatter.setWidth(3);
-//
-//        Quality q = Quality.Advanced();
-//        q.setAnimated(false);
-//
-//        IPainterFactory p = new EmulGLPainterFactory();
-//        IChartFactory f = new EmulGLChartFactory(p);
-//
-//        Chart chart = f.newChart(q);
-//        chart.add(scatter);
-//        chart.open("Jzy3d Demo", 600, 600);
+            if (first) {
+                plot.getData().add(engagementSeries);
+                plot.getData().add(excitementSeries);
+                plot.getData().add(stressSeries);
+                plot.getData().add(relaxationSeries);
+                plot.getData().add(interestSeries);
+                plot.getData().add(focusSeries);
+                first = false;
+            }
+        });
    }
 
 }

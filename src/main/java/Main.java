@@ -18,10 +18,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.*;
@@ -47,7 +48,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void start(Stage mainStage) {
+    public void start(Stage mainStage) throws Exception {
 
         window = mainStage;
 
@@ -181,7 +182,7 @@ public class Main extends Application {
         Button fruB = new Button("Frustration");
         fruB.setLayoutX(900);
 
-        StackPane engLay = new StackPane();
+        FlowPane engLay = new FlowPane();
         engLay.getChildren().addAll(engB, engL);
         engLay.getChildren().addAll(EngExcB, EngExcL);
         engLay.getChildren().addAll(EngFocB, EngFocL);
@@ -189,7 +190,7 @@ public class Main extends Application {
         engLay.getChildren().addAll(EngFruB, EngFruL);
         engScene = new Scene(engLay, 1000, 1000);
 
-        StackPane excLay = new StackPane();
+        FlowPane excLay = new FlowPane();
         excLay.getChildren().addAll(ExcEngB, ExcEngL);
         excLay.getChildren().addAll(excB, excL);
         excLay.getChildren().addAll(ExcFocB, ExcFocL);
@@ -197,7 +198,7 @@ public class Main extends Application {
         excLay.getChildren().addAll(ExcFruB, ExcFruL);
         excScene = new Scene(excLay, 1000, 1000);
 
-        StackPane focLay = new StackPane();
+        FlowPane focLay = new FlowPane();
         focLay.getChildren().addAll(FocEngB, FocEngL);
         focLay.getChildren().addAll(StrExcB, FocExcL);
         focLay.getChildren().addAll(focB, focL);
@@ -205,7 +206,7 @@ public class Main extends Application {
         focLay.getChildren().addAll(FocFruB, FocFruL);
         focScene = new Scene(focLay, 1000, 1000);
 
-        StackPane strLay = new StackPane();
+        FlowPane strLay = new FlowPane();
         strLay.getChildren().addAll(StrEngB, StrEngL);
         strLay.getChildren().addAll(StrExcB, StrExcL);
         strLay.getChildren().addAll(StrFocB, StrFocL);
@@ -213,7 +214,7 @@ public class Main extends Application {
         strLay.getChildren().addAll(StrFruB, StrFruL);
         strScene = new Scene(strLay, 1000, 1000);
 
-        StackPane fruLay = new StackPane();
+        FlowPane fruLay = new FlowPane();
         fruLay.getChildren().addAll(FruEngB, FruEngL);
         fruLay.getChildren().addAll(FruExcB, FruExcL);
         fruLay.getChildren().addAll(FruFocB, FruFocL);
@@ -228,7 +229,6 @@ public class Main extends Application {
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // TODO: Re-add
         JFXPanel VFXPanel=new JFXPanel();
         //File video_source=new File("C:\\Users\\Everett\\IdeaProjects\\CSC 570\\src\\CSC-570-Video-Analysis\\cloudofdots-lab2\\JavaEmotivClient\\src\\main\\java\\test.mp4");
         File video_source = new File("videos/test.mp4");
@@ -251,46 +251,27 @@ public class Main extends Application {
 
         final NumberAxis timeAxis = new NumberAxis();
         final NumberAxis emotionAxis = new NumberAxis();
-        timeAxis.setLabel("Epoch Milliseconds");
+        emotionAxis.setForceZeroInRange(false);
+        timeAxis.setLabel("Seconds since Video Start");
         LineChart<Number, Number> emotivPlot = new LineChart<>(timeAxis, emotionAxis);
 
         emotivPlot.setTitle("Emotion Data");
         emotivPlot.setAlternativeColumnFillVisible(false);
         emotivPlot.setAlternativeRowFillVisible(false);
 
-        //defining a series
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        series.setName("My portfolio");
-        //populating the series with data
-        series.getData().add(new XYChart.Data<>(1, 23));
-        series.getData().add(new XYChart.Data<>(2, 14));
-        series.getData().add(new XYChart.Data<>(3, 15));
-        series.getData().add(new XYChart.Data<>(4, 24));
-        series.getData().add(new XYChart.Data<>(5, 34));
-        series.getData().add(new XYChart.Data<>(6, 36));
-        series.getData().add(new XYChart.Data<>(7, 22));
-        series.getData().add(new XYChart.Data<>(8, 30));
-        series.getData().add(new XYChart.Data<>(9, 31));
-        series.getData().add(new XYChart.Data<>(10, 17));
-        series.getData().add(new XYChart.Data<>(11, 29));
-        series.getData().add(new XYChart.Data<>(12, 25));
-
-        emotivPlot.getData().add(series);
-
         // add video to stackpane
-        // TODO: Re-add
         root.getChildren().add(viewer);
         root.getChildren().add(emotivPlot);
-//        StackPane overlayPane = new StackPane();
+//        FlowPane overlayPane = new FlowPane();
 //        root.getChildren().add(overlayPane);
         VFXPanel.setScene(scene);
-//        player.play();
+        player.play();
 //        initEyeTracker(overlayPane);
         frame.add(VFXPanel, BorderLayout.NORTH);  // add the panel to the frame
-        player.pause();
+//        player.pause();
 
 
-        window.setScene(engScene);
+        window.setScene(scene);
         window.setTitle("DancEmote");
         window.show();
 
@@ -325,10 +306,10 @@ public class Main extends Application {
 //        isoFile = new IsoFile(fis.getChannel(), new PropertyBoxParserImpl().skippingBoxes("mdat", "mvhd"));
 //        fis.close();
 //        MovieBox movieBox = isoFile.getMovieBox();
-//        DanceDelegate delegate = new DanceDelegate();
-//        URI uri = new URI("wss://localhost:6868");
-//        DanceSocket ws = new DanceSocket(uri, delegate, emotivPlot);
-//        ws.connect();
+        DanceDelegate delegate = new DanceDelegate();
+        URI uri = new URI("wss://localhost:6868");
+        DanceSocket ws = new DanceSocket(uri, delegate, emotivPlot);
+        ws.connect();
 //        Thread eyeTrackerThread = new Thread(() -> {
 //            try {
 //                EyeTracker.trackEyeGaze();
