@@ -31,17 +31,17 @@ public class DanceDelegate extends EmotivDelegate {
     private long start = 0;
 
     public DanceDelegate() {
-        File file = new File("../emotiv.secret");
+        //File file = new File("../emotiv.secret");
 
-        try {
-            Scanner scanner = new Scanner(file);
+//        try {
+            //Scanner scanner = new Scanner(file);
 
-            String line = scanner.nextLine();
+            //String line = scanner.nextLine();
             System.out.println("Client ID and secret set");
-            clientSecret = line;
-            clientID = "dMLPgtBrFXZpQwjsEnuTTJfUrXiUqSrCzgQcVQZ1";
+            clientSecret = "jahu1mUAhCrJjgWskfkS1PU8RA62n3mydugMvJczPErKcw155XzmnIaj4ke0LR83zwlT0guWyUJPnWe5VMkrnCPpUubXDNJVm8EYD7cN6SguFoEb7bO6AuQLztaKcTvG";
+            clientID = "qoOGabeFVT4rzrQQQheF8mdFxSuFsU17i8yo7Qk0";
 
-            scanner.close();
+            //scanner.close();
             engagementSeries = new XYChart.Series<>();
             excitementSeries = new XYChart.Series<>();
             stressSeries = new XYChart.Series<>();
@@ -56,9 +56,9 @@ public class DanceDelegate extends EmotivDelegate {
             focusSeries.setName("Focus");
             first = true;
             start = Instant.now().getEpochSecond();
-        } catch (FileNotFoundException e) {
-            System.out.println("Secret not found");
-        }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Secret not found");
+//        }
     }
 
     @Override

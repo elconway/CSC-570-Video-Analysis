@@ -260,13 +260,13 @@ public class Main extends Application {
         emotivPlot.setAlternativeRowFillVisible(false);
 
         // add video to stackpane
-        root.getChildren().add(viewer);
+        StackPane video = new StackPane();
+        video.getChildren().add(viewer);
+        root.getChildren().add(video);
         root.getChildren().add(emotivPlot);
-//        FlowPane overlayPane = new FlowPane();
-//        root.getChildren().add(overlayPane);
         VFXPanel.setScene(scene);
         player.play();
-//        initEyeTracker(overlayPane);
+//        initEyeTracker(video);
         frame.add(VFXPanel, BorderLayout.NORTH);  // add the panel to the frame
 //        player.pause();
 
@@ -310,6 +310,10 @@ public class Main extends Application {
         URI uri = new URI("wss://localhost:6868");
         DanceSocket ws = new DanceSocket(uri, delegate, emotivPlot);
         ws.connect();
+
+        player.setOnEndOfMedia(() -> {
+            ws.close();
+        });
 //        Thread eyeTrackerThread = new Thread(() -> {
 //            try {
 //                EyeTracker.trackEyeGaze();

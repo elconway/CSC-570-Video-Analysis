@@ -49,8 +49,8 @@ public class EmotivDelegate {
         message.put("jsonrpc", "2.0");
         message.put("method", "authorize");
         JSONObject params = new JSONObject();
-        params.put("clientId", "dYvuSFLyPj87WKphZZEZrE7rAwiZv5r390bMPCKK");
-        params.put("clientSecret", "cRjefI0seoDCs9G2gPGwC8ctIKy19DbGHMUm9GbYqEpycOhYG7echQFf1K89mFdE8W61cZ4jvcU6So6rSBWisjFtBZi6AYfYIWTn8vibgcllDlLcYgwWOs0E9sz5LKS6");
+        params.put("clientId", CLIENT_ID);
+        params.put("clientSecret", CLIENT_SECRET);
         params.put("debit", 1);
         message.put("params", params);
         ws.send(message.toString());

@@ -20,6 +20,7 @@ public class DanceSocket extends EmotivSocket{
     @Override
     public void onMessage(String message) {
         System.out.println("Received message from Emotiv server.");
+        System.out.println(message);
         if (!delegate.isSubscribed()) {
             JSONObject response = new JSONObject(message);
             int id = response.getInt("id");
