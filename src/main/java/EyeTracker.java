@@ -28,6 +28,7 @@ public class EyeTracker {
     private static final String CASCADE_CLASSIFIER_FILE = "src/main/java/haarcascade_eye.xml";
     private static final int FRAME_WIDTH = 1920;
     private static final int FRAME_HEIGHT = 1080;
+    private static int first = 0;
 
     private static CascadeClassifier eyeCascade;
 
@@ -55,6 +56,7 @@ public class EyeTracker {
 
 //        long startTime = System.currentTimeMillis();
 
+
         while (true) {
             try {
             if (capture.read(frame)) {
@@ -62,8 +64,8 @@ public class EyeTracker {
                 Imgproc.equalizeHist(grayFrame, grayFrame);
 
                 // Detect eyes
-                eyeCascade.detectMultiScale(grayFrame, eyes, 1.1, 2, Objdetect.CASCADE_SCALE_IMAGE,
-                        new Size(30, 30), new Size());
+                eyeCascade.detectMultiScale(grayFrame, eyes, 1.01, 3, Objdetect.CASCADE_SCALE_IMAGE,
+                        new Size(10, 10), new Size());
 
                 Rect[] eyesArray = eyes.toArray();
                 for (Rect eye : eyesArray) {
@@ -78,13 +80,14 @@ public class EyeTracker {
                     System.out.println("Gaze X: " + gazeX);
                     System.out.println("Gaze Y: " + gazeY);
 
-                    // Draw rectangle around the eyes
+                    Circle gazeDot = new Circle(5, Color.RED);
+
+                    // Draw circle at gaze coordinates
                     Platform.runLater(() -> {
-                        Circle gazeDot = new Circle(5, Color.RED);
                         gazeDot.setTranslateX(gazeX * overlayPane.getWidth());
                         gazeDot.setTranslateY(gazeY * overlayPane.getHeight());
-                        overlayPane.getChildren().clear(); // Clear previous dots
-                        overlayPane.getChildren().add(gazeDot); // Add the new dot
+//                        overlayPane.getChildren().(gazeDot);
+                        overlayPane.getChildren().add(gazeDot);
                     });
                 }
 
