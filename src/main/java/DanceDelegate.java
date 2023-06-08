@@ -56,9 +56,6 @@ public class DanceDelegate extends EmotivDelegate {
             focusSeries.setName("Focus");
             first = true;
             start = Instant.now().getEpochSecond();
-//        } catch (FileNotFoundException e) {
-//            System.out.println("Secret not found");
-//        }
     }
 
     @Override
@@ -132,7 +129,54 @@ public class DanceDelegate extends EmotivDelegate {
         ws.send(message.toString());
     }
 
+    public void toggleEngagement(LineChart<Number, Number> plot) {
+        plot.getData().clear();
+        if (plot.getData().contains(engagementSeries)) {
+            plot.getData().remove(engagementSeries);
+        } else {
+            plot.getData().add(engagementSeries);
+        }
+    };
 
+    public void toggleExcitement(LineChart<Number, Number> plot) {
+        if (plot.getData().contains(excitementSeries)) {
+            plot.getData().remove(excitementSeries);
+        } else {
+            plot.getData().add(excitementSeries);
+        }
+    };
+
+    public void toggleStress(LineChart<Number, Number> plot) {
+        if (plot.getData().contains(stressSeries)) {
+            plot.getData().remove(stressSeries);
+        } else {
+            plot.getData().add(stressSeries);
+        }
+    };
+
+    public void toggleRelaxation(LineChart<Number, Number> plot) {
+        if (plot.getData().contains(relaxationSeries)) {
+            plot.getData().remove(relaxationSeries);
+        } else {
+            plot.getData().add(relaxationSeries);
+        }
+    };
+
+    public void toggleInterest(LineChart<Number, Number> plot) {
+        if (plot.getData().contains(interestSeries)) {
+            plot.getData().remove(interestSeries);
+        } else {
+            plot.getData().add(interestSeries);
+        }
+    };
+
+    public void toggleFocus(LineChart<Number, Number> plot) {
+        if (plot.getData().contains(focusSeries)) {
+            plot.getData().remove(focusSeries);
+        } else {
+            plot.getData().add(focusSeries);
+        }
+    };
 
     // Expects JSON Objects like:
     // {"time":1684333831.2766,"met":[true,0.791596,true,0.87237,0,true,0.830392,true,0.873179,true,0.841725,true,0.792859],"sid":"aa4890f1-ce53-4467-8c3f-fd5d5a4ede2e"}
@@ -147,6 +191,7 @@ public class DanceDelegate extends EmotivDelegate {
     // "int.isActive","int",
     // "foc.isActive","foc"
     // ]
+
     public void pad(JSONObject object, LineChart<Number, Number> plot) {
         int[] magic_indecies = new int[]{1, 3, 6, 8, 10, 12};
         double[][] met = new double[][]{{1, 1, 1}, {1, 1, -1}, {-1, 1, -1}, {1, -1, 1}, {1, 1, -1}, {1, -1, 1}};
