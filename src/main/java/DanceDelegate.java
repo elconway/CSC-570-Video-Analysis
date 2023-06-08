@@ -202,7 +202,7 @@ public class DanceDelegate extends EmotivDelegate {
             }
         }
         for (int i = 0; i < 3; i++) {
-            norm[i] = norm[i] / 3; //graph here?
+            norm[i] = norm[i] / 3;
         }
 
         Platform.runLater(() -> {
