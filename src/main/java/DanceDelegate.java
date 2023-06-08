@@ -130,7 +130,6 @@ public class DanceDelegate extends EmotivDelegate {
     }
 
     public void toggleEngagement(LineChart<Number, Number> plot) {
-        plot.getData().clear();
         if (plot.getData().contains(engagementSeries)) {
             plot.getData().remove(engagementSeries);
         } else {
