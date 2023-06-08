@@ -20,7 +20,7 @@ This application can playback video and connect to an Emotiv headset during play
 
 levels during video playback. This tool can be used to analyze reactions to videos or even edit videos by picking the time intervals that induced the most positive reactions. 
 
-![pic](apppic.png)
+<img src="apppic.png" alt="pic" width="200">
 
 ## Limitations
 * No video selection option
