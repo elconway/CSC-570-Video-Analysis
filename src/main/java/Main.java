@@ -52,179 +52,6 @@ public class Main extends Application {
 
         window = mainStage;
 
-        // Create buttons to go to engagement
-
-        Label engL = new Label("Engagement");
-        Button engB = new Button("Engagement");
-        engB.setLayoutX(100);
-
-        Label ExcEngL = new Label("ExcEngagement");
-        Button ExcEngB = new Button("Engagement");
-        ExcEngB.setOnAction(e -> window.setScene(engScene));
-        engB.setLayoutX(100);
-
-        Label FocEngL = new Label("FocEngagement");
-        Button FocEngB = new Button("Engagement");
-        FocEngB.setOnAction(e -> window.setScene(engScene));
-        engB.setLayoutX(100);
-
-        Label StrEngL = new Label("StrEngagement");
-        Button StrEngB = new Button("Engagement");
-        StrEngB.setOnAction(e -> window.setScene(engScene));
-        engB.setLayoutX(100);
-
-        Label FruEngL = new Label("FruEngagement");
-        Button FruEngB = new Button("Engagement");
-        FruEngB.setOnAction(e -> window.setScene(engScene));
-        engB.setLayoutX(100);
-
-        // Create buttons to go to excitement
-
-        Label EngExcL = new Label("EngExcitement");
-        Button EngExcB = new Button("Excitement");
-        EngExcB.setOnAction(e -> window.setScene(excScene));
-        EngExcB.setLayoutX(300);
-
-        Label excL = new Label("Excitement");
-        Button excB = new Button("Excitement");
-        excB.setLayoutX(300);
-
-        Label FocExcL = new Label("FocExcitement");
-        Button FocExcB = new Button("Excitement");
-        FocExcB.setOnAction(e -> window.setScene(excScene));
-        FocExcB.setLayoutX(300);
-
-        Label StrExcL = new Label("StrExcitement");
-        Button StrExcB = new Button("Excitement");
-        StrExcB.setOnAction(e -> window.setScene(excScene));
-        StrExcB.setLayoutX(300);
-
-        Label FruExcL = new Label("FruExcitement");
-        Button FruExcB = new Button("Excitement");
-        FruExcB.setOnAction(e -> window.setScene(excScene));
-        FruExcB.setLayoutX(300);
-
-        // Create buttons to go to focus
-
-        Label EngFocL = new Label("EngFocus");
-        Button EngFocB = new Button("Focus");
-        EngFocB.setOnAction(e -> window.setScene(focScene));
-        EngFocB.setLayoutX(500);
-
-        Label ExcFocL = new Label("ExcFocus");
-        Button ExcFocB = new Button("Focus");
-        ExcFocB.setOnAction(e -> window.setScene(focScene));
-        ExcFocB.setLayoutX(500);
-
-        Label focL = new Label("Focus");
-        Button focB = new Button("Focus");
-        focB.setLayoutX(500);
-
-        Label StrFocL = new Label("StrFocus");
-        Button StrFocB = new Button("Focus");
-        StrFocB.setOnAction(e -> window.setScene(focScene));
-        StrFocB.setLayoutX(500);
-
-        Label FruFocL = new Label("FruFocus");
-        Button FruFocB = new Button("Focus");
-        FruFocB.setOnAction(e -> window.setScene(focScene));
-        FruFocB.setLayoutX(500);
-
-        // Create buttons to go to stress
-
-        Label EngStrL = new Label("EngStress");
-        Button EngStrB = new Button("Stress");
-        EngStrB.setOnAction(e -> window.setScene(strScene));
-        EngStrB.setLayoutX(700);
-
-        Label ExcStrL = new Label("ExcStress");
-        Button ExcStrB = new Button("Stress");
-        ExcStrB.setOnAction(e -> window.setScene(strScene));
-        ExcStrB.setLayoutX(700);
-
-        Label FocStrL = new Label("FocStress");
-        Button FocStrB = new Button("Stress");
-        FocStrB.setOnAction(e -> window.setScene(strScene));
-        FocStrB.setLayoutX(700);
-
-        Label strL = new Label("Stress");
-        Button strB = new Button("Stress");
-        strB.setLayoutX(700);
-
-        Label FruStrL = new Label("FruStress");
-        Button FruStrB = new Button("Stress");
-        FruStrB.setOnAction(e -> window.setScene(strScene));
-        FruStrB.setLayoutX(700);
-
-        // Create buttons to go to frustration
-
-        Label EngFruL = new Label("EngSFrustration");
-        Button EngFruB = new Button("Frustration");
-        EngFruB.setOnAction(e -> window.setScene(fruScene));
-        EngFruB.setLayoutX(900);
-
-        Label ExcFruL = new Label("ExcFrustration");
-        Button ExcFruB = new Button("Frustration");
-        ExcFruB.setOnAction(e -> window.setScene(fruScene));
-        ExcFruB.setLayoutX(900);
-
-        Label FocFruL = new Label("FocFrustration");
-        Button FocFruB = new Button("Frustration");
-        FocFruB.setOnAction(e -> window.setScene(fruScene));
-        FocFruB.setLayoutX(900);
-
-        Label StrFruL = new Label("StrFrustration");
-        Button StrFruB = new Button("Frustration");
-        StrFruB.setOnAction(e -> window.setScene(fruScene));
-        StrFruB.setLayoutX(900);
-
-        Label fruL = new Label("Frustration");
-        Button fruB = new Button("Frustration");
-        fruB.setLayoutX(900);
-
-        FlowPane engLay = new FlowPane();
-        engLay.getChildren().addAll(engB, engL);
-        engLay.getChildren().addAll(EngExcB, EngExcL);
-        engLay.getChildren().addAll(EngFocB, EngFocL);
-        engLay.getChildren().addAll(EngStrB, EngStrL);
-        engLay.getChildren().addAll(EngFruB, EngFruL);
-        engScene = new Scene(engLay, 1000, 1000);
-
-        FlowPane excLay = new FlowPane();
-        excLay.getChildren().addAll(ExcEngB, ExcEngL);
-        excLay.getChildren().addAll(excB, excL);
-        excLay.getChildren().addAll(ExcFocB, ExcFocL);
-        excLay.getChildren().addAll(ExcStrB, ExcStrL);
-        excLay.getChildren().addAll(ExcFruB, ExcFruL);
-        excScene = new Scene(excLay, 1000, 1000);
-
-        FlowPane focLay = new FlowPane();
-        focLay.getChildren().addAll(FocEngB, FocEngL);
-        focLay.getChildren().addAll(StrExcB, FocExcL);
-        focLay.getChildren().addAll(focB, focL);
-        focLay.getChildren().addAll(FocStrB, FocStrL);
-        focLay.getChildren().addAll(FocFruB, FocFruL);
-        focScene = new Scene(focLay, 1000, 1000);
-
-        FlowPane strLay = new FlowPane();
-        strLay.getChildren().addAll(StrEngB, StrEngL);
-        strLay.getChildren().addAll(StrExcB, StrExcL);
-        strLay.getChildren().addAll(StrFocB, StrFocL);
-        strLay.getChildren().addAll(strB, strL);
-        strLay.getChildren().addAll(StrFruB, StrFruL);
-        strScene = new Scene(strLay, 1000, 1000);
-
-        FlowPane fruLay = new FlowPane();
-        fruLay.getChildren().addAll(FruEngB, FruEngL);
-        fruLay.getChildren().addAll(FruExcB, FruExcL);
-        fruLay.getChildren().addAll(FruFocB, FruFocL);
-        fruLay.getChildren().addAll(FruStrB, FruStrL);
-        fruLay.getChildren().addAll(fruB, fruL);
-        fruScene = new Scene(fruLay, 1000, 1000);
-
-        // JPanel container = new JPanel();
-        // container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-
         JFrame frame = new JFrame("DancEmote");
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -259,11 +86,49 @@ public class Main extends Application {
         emotivPlot.setAlternativeColumnFillVisible(false);
         emotivPlot.setAlternativeRowFillVisible(false);
 
+
+        DanceDelegate delegate = new DanceDelegate();
+        URI uri = new URI("wss://localhost:6868");
+        DanceSocket ws = new DanceSocket(uri, delegate, emotivPlot);
+        ws.connect();
+
+        // Create buttons to go to engagement
+
+        Label engL = new Label("Engagement");
+        Button engB = new Button("Engagement");
+        engB.setOnAction(e -> delegate.toggleEngagement(emotivPlot));
+
+        Label excL = new Label("Excitement");
+        Button excB = new Button("Excitement");
+        excB.setOnAction(e -> delegate.toggleExcitement(emotivPlot));
+
+        Label strL = new Label("Stress");
+        Button strB = new Button("Stress");
+        strB.setOnAction(e -> delegate.toggleStress(emotivPlot));
+
+        Label focL = new Label("Focus");
+        Button focB = new Button("Focus");
+        focB.setOnAction(e -> delegate.toggleFocus(emotivPlot));
+
+        Label intL = new Label("Interest");
+        Button intB = new Button("Interest");
+        intB.setOnAction(e -> delegate.toggleInterest(emotivPlot));
+
+        Label relL = new Label("Relaxation");
+        Button relB = new Button("Relaxation");
+        relB.setOnAction(e -> delegate.toggleRelaxation(emotivPlot));
+
         // add video to stackpane
         StackPane video = new StackPane();
         video.getChildren().add(viewer);
         root.getChildren().add(video);
         root.getChildren().add(emotivPlot);
+        root.getChildren().add(engB);
+        root.getChildren().add(excB);
+        root.getChildren().add(strB);
+        root.getChildren().add(focB);
+        root.getChildren().add(intB);
+        root.getChildren().add(relB);
         VFXPanel.setScene(scene);
         player.play();
 //        initEyeTracker(video);
@@ -272,44 +137,10 @@ public class Main extends Application {
 
 
         window.setScene(scene);
-        window.setTitle("DancEmote");
+        window.setTitle("TeleCoach");
         window.show();
 
-
-        /* Create scene for excitement
-        Label excL = new Label("Excitement");
-        Button excB = new Button("Excitement");
-        excB.setOnAction(e -> window.setScene(excScene));
-
-        // Create scene for focus
-        Label focL = new Label("Focus");
-        Button focB = new Button("Focus");
-        focB.setOnAction(e -> window.setScene(focScene));
-
-        // Create scene for stress
-        Label strL = new Label("Stress");
-        Button strB = new Button("Stress");
-        strB.setOnAction(e -> window.setScene(strScene));
-
-        // Create scene for frustration
-        Label fruL = new Label("Frustration");
-        Button fruB = new Button("Frustration");
-        fruB.setOnAction(e -> window.setScene(fruScene));*/
-
-        //JButton SubmitNewWord = new JButton("Submit word");
-        //JPanel panel2 = new JPanel();
-        //panel2.add(SubmitNewWord);
-        //frame.add(panel2, BorderLayout.SOUTH);
-
-        // frame.setVisible(true);
-//        FileInputStream fis = new FileInputStream("test.mp4");
-//        isoFile = new IsoFile(fis.getChannel(), new PropertyBoxParserImpl().skippingBoxes("mdat", "mvhd"));
-//        fis.close();
-//        MovieBox movieBox = isoFile.getMovieBox();
-        DanceDelegate delegate = new DanceDelegate();
-        URI uri = new URI("wss://localhost:6868");
-        DanceSocket ws = new DanceSocket(uri, delegate, emotivPlot);
-        ws.connect();
+        // StrFocB.setOnAction(e -> window.setScene(focScene));
 
         player.setOnEndOfMedia(() -> {
             ws.close();
