@@ -52,22 +52,25 @@ public class Main extends Application {
 
         window = mainStage;
 
+        //Create the frame
         JFrame frame = new JFrame("DancEmote");
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //Create the JFXPanel
         JFXPanel VFXPanel=new JFXPanel();
-        //File video_source=new File("C:\\Users\\Everett\\IdeaProjects\\CSC 570\\src\\CSC-570-Video-Analysis\\cloudofdots-lab2\\JavaEmotivClient\\src\\main\\java\\test.mp4");
         File video_source = new File("videos/test.mp4");
         Media m=new Media(video_source.toURI().toString());
         MediaPlayer player=new MediaPlayer(m);
         MediaView viewer=new MediaView(player);
         FlowPane root=new FlowPane();
         Scene scene=new Scene(root);
+
         // center video position
         Rectangle2D screen=Screen.getPrimary().getVisualBounds();
         viewer.setX(0);//getWidth()-videoPanel
         viewer.setY(0);
+
         // resize video based on screen size
         DoubleProperty width=viewer.fitWidthProperty();
         DoubleProperty height=viewer.fitHeightProperty();
@@ -76,24 +79,25 @@ public class Main extends Application {
         viewer.setPreserveRatio(true);
 
 
+        //Create the objects required to hold the data
         final NumberAxis timeAxis = new NumberAxis();
         final NumberAxis emotionAxis = new NumberAxis();
         emotionAxis.setForceZeroInRange(false);
         timeAxis.setLabel("Seconds since Video Start");
         LineChart<Number, Number> emotivPlot = new LineChart<>(timeAxis, emotionAxis);
 
+
         emotivPlot.setTitle("Emotion Data");
         emotivPlot.setAlternativeColumnFillVisible(false);
         emotivPlot.setAlternativeRowFillVisible(false);
 
-
+        //Open the socket and connect to it
         DanceDelegate delegate = new DanceDelegate();
         URI uri = new URI("wss://localhost:6868");
         DanceSocket ws = new DanceSocket(uri, delegate, emotivPlot);
         ws.connect();
 
         // Create buttons to go to engagement
-
         Label engL = new Label("Engagement");
         Button engB = new Button("Engagement");
         engB.setOnAction(e -> delegate.toggleEngagement(emotivPlot));
@@ -129,11 +133,10 @@ public class Main extends Application {
         root.getChildren().add(focB);
         root.getChildren().add(intB);
         root.getChildren().add(relB);
+
         VFXPanel.setScene(scene);
         player.play();
-//        initEyeTracker(video);
         frame.add(VFXPanel, BorderLayout.NORTH);  // add the panel to the frame
-//        player.pause();
 
 
         window.setScene(scene);
@@ -142,21 +145,15 @@ public class Main extends Application {
 
         // StrFocB.setOnAction(e -> window.setScene(focScene));
 
+        //Terminate fetching emotiv data when the video stops
         player.setOnEndOfMedia(() -> {
             ws.close();
         });
-//        Thread eyeTrackerThread = new Thread(() -> {
-//            try {
-//                EyeTracker.trackEyeGaze();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//
-//        eyeTrackerThread.start();
-//        eyeTrackerThread.join();
     }
 
+
+    //Code for initializing the eye tracker.
+    //Not included as the eye tracking algorithm performs poorly
     private static void initEyeTracker(StackPane overlayPane) {
         // Create an instance of the EyeTracker class
         eyeTracker = new EyeTracker();

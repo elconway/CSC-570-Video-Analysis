@@ -23,6 +23,8 @@ import javafx.application.Platform;
 import java.util.Date;
 import java.io.IOException;
 
+//This class is used to track the eye gaze and print a red dot at the target location
+
 public class EyeTracker {
 
     private static final String CASCADE_CLASSIFIER_FILE = "src/main/java/haarcascade_eye.xml";
@@ -53,8 +55,6 @@ public class EyeTracker {
         Mat frame = new Mat();
         Mat grayFrame = new Mat();
         MatOfRect eyes = new MatOfRect();
-
-//        long startTime = System.currentTimeMillis();
 
 
         while (true) {
