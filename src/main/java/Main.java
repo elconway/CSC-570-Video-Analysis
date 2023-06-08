@@ -57,7 +57,6 @@ public class Main extends Application {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JFXPanel VFXPanel=new JFXPanel();
-        //File video_source=new File("C:\\Users\\Everett\\IdeaProjects\\CSC 570\\src\\CSC-570-Video-Analysis\\cloudofdots-lab2\\JavaEmotivClient\\src\\main\\java\\test.mp4");
         File video_source = new File("videos/test.mp4");
         Media m=new Media(video_source.toURI().toString());
         MediaPlayer player=new MediaPlayer(m);
@@ -66,7 +65,7 @@ public class Main extends Application {
         Scene scene=new Scene(root);
         // center video position
         Rectangle2D screen=Screen.getPrimary().getVisualBounds();
-        viewer.setX(0);//getWidth()-videoPanel
+        viewer.setX(0);
         viewer.setY(0);
         // resize video based on screen size
         DoubleProperty width=viewer.fitWidthProperty();
