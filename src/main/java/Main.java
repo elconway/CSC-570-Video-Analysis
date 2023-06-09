@@ -63,11 +63,13 @@ public class Main extends Application {
 
         window = mainStage;
 
+        //Create the frame
         JFrame frame = new JFrame("DancEmote");
         frame.setSize(2000, 2000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         dur = Duration.millis(30000);
 
+        //Create the JFXPanel
         JFXPanel VFXPanel=new JFXPanel();
         File video_source = new File("videos/test.mp4");
         Media m=new Media(video_source.toURI().toString());
@@ -75,6 +77,12 @@ public class Main extends Application {
         MediaView viewer=new MediaView(player);
         FlowPane root=new FlowPane();
         Scene scene=new Scene(root);
+
+        // center video position
+        Rectangle2D screen=Screen.getPrimary().getVisualBounds();
+        viewer.setX(0);//getWidth()-videoPanel
+        viewer.setY(0);
+
         // resize video based on screen size
         DoubleProperty width=viewer.fitWidthProperty();
         DoubleProperty height=viewer.fitHeightProperty();
@@ -83,17 +91,19 @@ public class Main extends Application {
         viewer.setPreserveRatio(true);
 
 
+        //Create the objects required to hold the data
         final NumberAxis timeAxis = new NumberAxis();
         final NumberAxis emotionAxis = new NumberAxis();
         emotionAxis.setForceZeroInRange(false);
         timeAxis.setLabel("Seconds since Video Start");
         LineChart<Number, Number> emotivPlot = new LineChart<>(timeAxis, emotionAxis);
 
+
         emotivPlot.setTitle("Emotion Data");
         emotivPlot.setAlternativeColumnFillVisible(false);
         emotivPlot.setAlternativeRowFillVisible(false);
 
-
+        //Open the socket and connect to it
         DanceDelegate delegate = new DanceDelegate();
         URI uri = new URI("wss://localhost:6868");
         DanceSocket ws = new DanceSocket(uri, delegate, emotivPlot);
@@ -141,11 +151,10 @@ public class Main extends Application {
         root.getChildren().add(intB);
         root.getChildren().add(relB);
         root.getChildren().add(backThirty);
+
         VFXPanel.setScene(scene);
         player.play();
-//        initEyeTracker(video);
         frame.add(VFXPanel, BorderLayout.NORTH);  // add the panel to the frame
-//        player.pause();
 
 
 
@@ -155,21 +164,15 @@ public class Main extends Application {
 
         // StrFocB.setOnAction(e -> window.setScene(focScene));
 
+        //Terminate fetching emotiv data when the video stops
         player.setOnEndOfMedia(() -> {
             ws.close();
         });
-//        Thread eyeTrackerThread = new Thread(() -> {
-//            try {
-//                EyeTracker.trackEyeGaze();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//
-//        eyeTrackerThread.start();
-//        eyeTrackerThread.join();
     }
 
+
+    //Code for initializing the eye tracker.
+    //Not included as the eye tracking algorithm performs poorly
     private static void initEyeTracker(StackPane overlayPane) {
         // Create an instance of the EyeTracker class
         eyeTracker = new EyeTracker();

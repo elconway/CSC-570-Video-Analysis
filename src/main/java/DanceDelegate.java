@@ -130,7 +130,11 @@ public class DanceDelegate extends EmotivDelegate {
         ws.send(message.toString());
     }
 
+<<<<<<< HEAD
     public void toggleEngagement(LineChart<Number, Number> plot, Button b) {
+=======
+    public void toggleEngagement(LineChart<Number, Number> plot) {
+>>>>>>> 3732a298cdc9f50ca78d20e021a22b325703b3b9
         if (plot.getData().contains(engagementSeries)) {
             plot.getData().remove(engagementSeries);
             b.setText("Toggle\nEngagement\n(Off)");
@@ -215,7 +219,7 @@ public class DanceDelegate extends EmotivDelegate {
             }
         }
         for (int i = 0; i < 3; i++) {
-            norm[i] = norm[i] / 3; //graph here?
+            norm[i] = norm[i] / 3;
         }
 
         Platform.runLater(() -> {
