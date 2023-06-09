@@ -1,6 +1,7 @@
 import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import org.java_websocket.client.WebSocketClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -129,51 +130,67 @@ public class DanceDelegate extends EmotivDelegate {
         ws.send(message.toString());
     }
 
+<<<<<<< HEAD
+    public void toggleEngagement(LineChart<Number, Number> plot, Button b) {
+=======
     public void toggleEngagement(LineChart<Number, Number> plot) {
+>>>>>>> 3732a298cdc9f50ca78d20e021a22b325703b3b9
         if (plot.getData().contains(engagementSeries)) {
             plot.getData().remove(engagementSeries);
+            b.setText("Toggle\nEngagement\n(Off)");
         } else {
             plot.getData().add(engagementSeries);
+            b.setText("Toggle\nEngagement\n(On)");
         }
     };
 
-    public void toggleExcitement(LineChart<Number, Number> plot) {
+    public void toggleExcitement(LineChart<Number, Number> plot, Button b) {
         if (plot.getData().contains(excitementSeries)) {
             plot.getData().remove(excitementSeries);
+            b.setText("Toggle\nExcitement\n(Off)");
         } else {
             plot.getData().add(excitementSeries);
+            b.setText("Toggle\nExcitement\n(On)");
         }
     };
 
-    public void toggleStress(LineChart<Number, Number> plot) {
+    public void toggleStress(LineChart<Number, Number> plot, Button b) {
         if (plot.getData().contains(stressSeries)) {
             plot.getData().remove(stressSeries);
+            b.setText("Toggle\nStress\n(Off)");
         } else {
             plot.getData().add(stressSeries);
+            b.setText("Toggle\nStress\n(On)");
         }
     };
 
-    public void toggleRelaxation(LineChart<Number, Number> plot) {
+    public void toggleRelaxation(LineChart<Number, Number> plot, Button b) {
         if (plot.getData().contains(relaxationSeries)) {
             plot.getData().remove(relaxationSeries);
+            b.setText("Toggle\nRelaxation\n(Off)");
         } else {
             plot.getData().add(relaxationSeries);
+            b.setText("Toggle\nRelaxation\n(On)");
         }
     };
 
-    public void toggleInterest(LineChart<Number, Number> plot) {
+    public void toggleInterest(LineChart<Number, Number> plot, Button b) {
         if (plot.getData().contains(interestSeries)) {
             plot.getData().remove(interestSeries);
+            b.setText("Toggle\nInterest\n(Off)");
         } else {
             plot.getData().add(interestSeries);
+            b.setText("Toggle\nInterest\n(On)");
         }
     };
 
-    public void toggleFocus(LineChart<Number, Number> plot) {
+    public void toggleFocus(LineChart<Number, Number> plot, Button b) {
         if (plot.getData().contains(focusSeries)) {
             plot.getData().remove(focusSeries);
+            b.setText("Toggle\nFocus\n(Off)");
         } else {
             plot.getData().add(focusSeries);
+            b.setText("Toggle\nFocus\n(On)");
         }
     };
 
@@ -213,16 +230,6 @@ public class DanceDelegate extends EmotivDelegate {
             relaxationSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[3]))).doubleValue()));
             interestSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[4]))).doubleValue()));
             focusSeries.getData().add(new XYChart.Data<>(current, ((BigDecimal)(arr.get(magic_indecies[5]))).doubleValue()));
-
-            if (first) {
-                plot.getData().add(engagementSeries);
-                plot.getData().add(excitementSeries);
-                plot.getData().add(stressSeries);
-                plot.getData().add(relaxationSeries);
-                plot.getData().add(interestSeries);
-                plot.getData().add(focusSeries);
-                first = false;
-            }
         });
    }
 

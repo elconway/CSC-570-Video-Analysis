@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.io.File;
 import java.awt.*;
 import java.awt.event.*;
+import javafx.util.Duration;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.embed.swing.JFXPanel;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -43,9 +45,18 @@ public class Main extends Application {
     private static EyeTracker eyeTracker;
     private static Stage window;
     private static Scene engScene, excScene, focScene, strScene, fruScene;
+    private static Duration dur;
 
     public static void main(String[] args) throws Exception {
         launch(args);
+    }
+
+    private void rewThirty(MediaPlayer player) {
+        if (player.getCurrentTime().lessThan(dur)) {
+            player.seek(Duration.ZERO);
+        } else {
+            player.seek(player.getCurrentTime().subtract(dur));
+        }
     }
 
     public void start(Stage mainStage) throws Exception {
@@ -54,8 +65,9 @@ public class Main extends Application {
 
         //Create the frame
         JFrame frame = new JFrame("DancEmote");
-        frame.setSize(1000, 1000);
+        frame.setSize(2000, 2000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dur = Duration.millis(30000);
 
         //Create the JFXPanel
         JFXPanel VFXPanel=new JFXPanel();
@@ -98,29 +110,34 @@ public class Main extends Application {
         ws.connect();
 
         // Create buttons to go to engagement
-        Label engL = new Label("Engagement");
-        Button engB = new Button("Engagement");
-        engB.setOnAction(e -> delegate.toggleEngagement(emotivPlot));
 
-        Label excL = new Label("Excitement");
-        Button excB = new Button("Excitement");
-        excB.setOnAction(e -> delegate.toggleExcitement(emotivPlot));
+        Button engB = new Button("Toggle\nEngagement\n(Off)");
+        engB.setOnAction(e -> delegate.toggleEngagement(emotivPlot, engB));
 
-        Label strL = new Label("Stress");
-        Button strB = new Button("Stress");
-        strB.setOnAction(e -> delegate.toggleStress(emotivPlot));
+        Button excB = new Button("Toggle\nExcitement\n(Off)");
+        excB.setOnAction(e -> delegate.toggleExcitement(emotivPlot, excB));
 
-        Label focL = new Label("Focus");
-        Button focB = new Button("Focus");
-        focB.setOnAction(e -> delegate.toggleFocus(emotivPlot));
+        Button strB = new Button("Toggle\nStress\n(Off)");
+        strB.setOnAction(e -> delegate.toggleStress(emotivPlot, strB));
 
-        Label intL = new Label("Interest");
-        Button intB = new Button("Interest");
-        intB.setOnAction(e -> delegate.toggleInterest(emotivPlot));
+        Button focB = new Button("Toggle\nFocus\n(Off)");
+        focB.setOnAction(e -> delegate.toggleFocus(emotivPlot, focB));
 
-        Label relL = new Label("Relaxation");
-        Button relB = new Button("Relaxation");
-        relB.setOnAction(e -> delegate.toggleRelaxation(emotivPlot));
+        Button intB = new Button("Toggle\nInterest\n(Off)");
+        intB.setOnAction(e -> delegate.toggleInterest(emotivPlot, intB));
+
+        Button relB = new Button("Toggle\nRelaxation\n(Off)");
+        relB.setOnAction(e -> delegate.toggleRelaxation(emotivPlot, relB));
+
+        Button backThirty = new Button("Rew. 30s");
+        backThirty.setOnAction(e -> rewThirty(player));
+
+        delegate.toggleEngagement(emotivPlot, engB);
+        delegate.toggleExcitement(emotivPlot, excB);
+        delegate.toggleStress(emotivPlot, strB);
+        delegate.toggleFocus(emotivPlot, focB);
+        delegate.toggleInterest(emotivPlot, intB);
+        delegate.toggleRelaxation(emotivPlot, relB);
 
         // add video to stackpane
         StackPane video = new StackPane();
@@ -133,10 +150,12 @@ public class Main extends Application {
         root.getChildren().add(focB);
         root.getChildren().add(intB);
         root.getChildren().add(relB);
+        root.getChildren().add(backThirty);
 
         VFXPanel.setScene(scene);
         player.play();
         frame.add(VFXPanel, BorderLayout.NORTH);  // add the panel to the frame
+
 
 
         window.setScene(scene);
