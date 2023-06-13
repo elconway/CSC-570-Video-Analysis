@@ -46,8 +46,10 @@ public class Main extends Application {
     private static Stage window;
     private static Scene engScene, excScene, focScene, strScene, fruScene;
     private static Duration dur;
+    private static File video_source;
 
     public static void main(String[] args) throws Exception {
+        video_source = new File(args[0]);
         launch(args);
     }
 
@@ -71,7 +73,6 @@ public class Main extends Application {
 
         //Create the JFXPanel
         JFXPanel VFXPanel=new JFXPanel();
-        File video_source = new File("videos/test.mp4");
         Media m=new Media(video_source.toURI().toString());
         MediaPlayer player=new MediaPlayer(m);
         MediaView viewer=new MediaView(player);

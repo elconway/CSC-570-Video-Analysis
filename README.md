@@ -6,7 +6,7 @@
 * Open EMOTIV Launcher
     * Create a virtual device and connect to it
     * OR Connect to a real EMOTIV device
-* Open a terminal at the root directory of the project: ```./gradlew run```
+* Open a terminal at the root directory of the project: ```./gradlew run --args="path\to\video\file.mp4"```
     * Note that the IDE build system may not work due to incompatible JDK and Kotlin versions
 
 ## Features
