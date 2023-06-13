@@ -1,16 +1,7 @@
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.core.Rect;
 import org.opencv.core.MatOfRect;
-import org.opencv.core.MatOfByte;
-import org.opencv.core.MatOfFloat;
-import org.opencv.core.MatOfInt;
-import org.opencv.core.CvType;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.objdetect.CascadeClassifier;
@@ -20,7 +11,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.application.Platform;
 
-import java.util.Date;
 import java.io.IOException;
 
 //This class is used to track the eye gaze and print a red dot at the target location

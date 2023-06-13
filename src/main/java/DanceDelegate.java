@@ -5,19 +5,8 @@ import javafx.scene.control.Button;
 import org.java_websocket.client.WebSocketClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.jzy3d.chart.Chart;
-import org.jzy3d.chart.factories.*;
-import org.jzy3d.colors.Color;
-import org.jzy3d.maths.Coord3d;
-import org.jzy3d.plot3d.primitives.Scatter;
-import org.jzy3d.plot3d.rendering.canvas.Quality;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Random;
-import java.util.Scanner;
 
 public class DanceDelegate extends EmotivDelegate {
 
