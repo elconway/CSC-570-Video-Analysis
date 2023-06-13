@@ -5,19 +5,8 @@ import javafx.scene.control.Button;
 import org.java_websocket.client.WebSocketClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.jzy3d.chart.Chart;
-import org.jzy3d.chart.factories.*;
-import org.jzy3d.colors.Color;
-import org.jzy3d.maths.Coord3d;
-import org.jzy3d.plot3d.primitives.Scatter;
-import org.jzy3d.plot3d.rendering.canvas.Quality;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Random;
-import java.util.Scanner;
 
 public class DanceDelegate extends EmotivDelegate {
 
@@ -130,11 +119,7 @@ public class DanceDelegate extends EmotivDelegate {
         ws.send(message.toString());
     }
 
-<<<<<<< HEAD
     public void toggleEngagement(LineChart<Number, Number> plot, Button b) {
-=======
-    public void toggleEngagement(LineChart<Number, Number> plot) {
->>>>>>> 3732a298cdc9f50ca78d20e021a22b325703b3b9
         if (plot.getData().contains(engagementSeries)) {
             plot.getData().remove(engagementSeries);
             b.setText("Toggle\nEngagement\n(Off)");

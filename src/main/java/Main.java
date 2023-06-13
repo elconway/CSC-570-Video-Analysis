@@ -2,36 +2,25 @@ import java.net.URI;
 import java.io.IOException;
 import java.awt.BorderLayout;
 import java.io.File;
-import java.awt.*;
-import java.awt.event.*;
 import javafx.util.Duration;
-import javax.swing.*;
 import javax.swing.JFrame;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.embed.swing.JFXPanel;
-import javafx.util.Duration;
-
-import java.io.File;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.binding.Bindings;
 import javafx.application.*;
-// import weka.core.pmml.jaxbbindings.Application;
 
 /**
  * Main class to run the Emotiv WebSocket client.
